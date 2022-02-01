@@ -20,6 +20,8 @@ Pacman agents (in searchAgents.py).
 import util
 import sys
 import copy
+from util import Stack
+import pdb
 
 class SearchProblem:
     """
@@ -161,7 +163,37 @@ def iterativeDeepeningSearch(problem):
 
     """
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+
+    print("Start:", problem.getStartState())
+    # print("Is the start a goal?", problem.goalTest(problem.getStartState()))
+    # print("Actions from start state:", problem.getActions(problem.getStartState()))
+    
+
+    frontier = Stack()
+    pathTracker = dict()
+    pathTracker[problem.getStartState()] = [problem.getStartState()]
+    frontier.push(problem.getStartState())
+    explored = set()
+    state = problem.getStartState()
+    print(type(state))
+    while (problem.goalTest(state) == False):
+        print(frontier.list)
+        print("pathtracker", pathTracker)
+        if frontier.isEmpty():
+            return None
+        state = frontier.pop()
+        currentPath = pathTracker[state]
+        if problem.goalTest(state):
+            return pathTracker[state]
+        explored.add(state)
+        for action in problem.getActions(state):
+            if (action not in explored) and (action not in frontier.list):
+                print("action", action)
+                pathTracker[action] = currentPath + [action]
+                frontier.push(action)
+    return pathTracker[state]
+
+    # util.raiseNotDefined()
 
 def aStarSearch(problem, heuristic=nullHeuristic):
     """Search the node that has the lowest combined cost and heuristic first."""
