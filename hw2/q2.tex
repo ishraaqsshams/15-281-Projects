@@ -1,0 +1,30 @@
+\begin{problem}{Search Nodes}
+
+Consider the tree search (i.e. no explored set) of an arbitrary search problem with max branching factor $b$. Each search node $n$ has a backward (cumulative) cost of $g(n)$, an admissible heuristic of $h(n)$, and a depth of $d(n)$. Let $n_c$ be a minimum-cost goal node, and let $n_s$ be a shallowest goal node.
+
+For each of the following, give an expression that characterizes the set of nodes that are explored before the search terminates.
+For instance, if we asked for the set of nodes with positive heuristic value, you could say: for all $n$, such that $h(n) \geq 0$. Don't worry about ties (so you won’t need to worry about $>$ versus $\geq$). If there are no nodes for which the expression is true, you must write ``none.''
+
+\begin{question}[5]
+Give an inequality in terms of the functions defined above to describe the nodes $n$ that are explored in a breadth-first search before terminating.
+
+\solutionspace{2cm}{15cm}{Inequality: All $n$, such that:}{\Twoa}
+  
+\end{question}
+
+\begin{question}[5]
+Give an inequality in terms of the functions defined above to describe the nodes $n$ that are explored in a uniform cost search before terminating.
+
+\solutionspace{2cm}{15cm}{Inequality: All $n$, such that:}{\Twob}
+  
+\end{question}
+
+\begin{question}[5]
+Now for this question, assume the heuristic is consistent. Give an inequality in terms of the functions defined above to describe the nodes $n$ that are explored in an A* before terminating.
+
+\solutionspace{2cm}{15cm}{Inequality: All $n$, such that:}{\Twoc}
+  
+\end{question}
+
+
+\end{problem}
