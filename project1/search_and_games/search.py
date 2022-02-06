@@ -175,18 +175,21 @@ def iterativeDeepeningSearch(problem):
     frontier.push(problem.getStartState())
     explored = set()
     state = problem.getStartState()
-    print(type(state))
     while (problem.goalTest(state) == False):
         print(frontier.list)
         print("pathtracker", pathTracker)
         if frontier.isEmpty():
             return None
         state = frontier.pop()
-        currentPath = pathTracker[state]
+        print("state = ", state[-1])
+        currentPath = pathTracker[state[-1]]
         if problem.goalTest(state):
             return pathTracker[state]
         explored.add(state)
-        for action in problem.getActions(state):
+        for Action in problem.getActions(state):
+            print("Action ", Action)
+            action = Action[-1]
+            print("action ", action)
             if (action not in explored) and (action not in frontier.list):
                 print("action", action)
                 pathTracker[action] = currentPath + [action]

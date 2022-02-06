@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2020.2.7)  31 JAN 2022 16:57
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2020.2.7)  3 FEB 2022 18:22
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -653,7 +653,7 @@ Overfull \vbox (6.44444pt too high) has occurred while \output is active []
 Overfull \vbox (6.44444pt too high) has occurred while \output is active []
 
  [5] (c:/Users/ishra/OneDrive/Desktop/CMU 2019-2020/Junior Year/15-281 Intro to AI/hw2/q3.tex
-<figures/graph2.png, id=35, 487.0998pt x 320.51746pt>
+<figures/graph2.png, id=36, 487.0998pt x 320.51746pt>
 File: figures/graph2.png Graphic file (type png)
 <use figures/graph2.png>
 Package pdftex.def Info: figures/graph2.png  used on input line 6.
@@ -877,7 +877,7 @@ LaTeX Font Warning: Command \Large invalid in math mode on input line 49.
 
 LaTeX Font Warning: Command \Large invalid in math mode on input line 51.
 
-<figures/Consistent.png, id=41, 264.99pt x 225.9642pt>
+<figures/Consistent.png, id=42, 264.99pt x 225.9642pt>
 File: figures/Consistent.png Graphic file (type png)
 <use figures/Consistent.png>
 Package pdftex.def Info: figures/Consistent.png  used on input line 62.
@@ -886,7 +886,7 @@ Package pdftex.def Info: figures/Consistent.png  used on input line 62.
 Overfull \vbox (6.44444pt too high) has occurred while \output is active []
 
  [7 <c:/Users/ishra/OneDrive/Desktop/CMU 2019-2020/Junior Year/15-281 Intro to AI/hw2/figures/Consistent.png>] (c:/Users/ishra/OneDrive/Desktop/CMU 2019-2020/Junior Year/15-281 Intro to AI/hw2/q5.tex
-<figures/Expectimax-q5.png, id=47, 893.739pt x 499.6266pt>
+<figures/Expectimax-q5.png, id=48, 893.739pt x 499.6266pt>
 File: figures/Expectimax-q5.png Graphic file (type png)
 <use figures/Expectimax-q5.png>
 Package pdftex.def Info: figures/Expectimax-q5.png  used on input line 5.
@@ -895,7 +895,7 @@ Package pdftex.def Info: figures/Expectimax-q5.png  used on input line 5.
 Overfull \vbox (6.44444pt too high) has occurred while \output is active []
 
  [8 <c:/Users/ishra/OneDrive/Desktop/CMU 2019-2020/Junior Year/15-281 Intro to AI/hw2/figures/Expectimax-q5.png>] (c:/Users/ishra/OneDrive/Desktop/CMU 2019-2020/Junior Year/15-281 Intro to AI/hw2/q6.tex
-<figures/Minimax-and-AlphaBeta-q6.png, id=52, 1063.975pt x 595.22375pt>
+<figures/Minimax-and-AlphaBeta-q6.png, id=53, 1063.975pt x 595.22375pt>
 File: figures/Minimax-and-AlphaBeta-q6.png Graphic file (type png)
 <use figures/Minimax-and-AlphaBeta-q6.png>
 Package pdftex.def Info: figures/Minimax-and-AlphaBeta-q6.png  used on input line 5.
@@ -915,11 +915,11 @@ Here is how much of TeX's memory you used:
  540085 words of font info for 56 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  68i,11n,64p,489b,458s stack positions out of 5000i,500n,10000p,200000b,80000s
-{c:/texlive/2019/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}<c:/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><c:/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb><c:/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb><c:/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb><c:/texlive/2019/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on "c:/Users/ishra/OneDrive/Desktop/CMU 2019-2020/Junior Year/15-281 Intro to AI/hw2/hw2.pdf" (10 pages, 490971 bytes).
+{c:/texlive/2019/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}<c:/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><c:/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb><c:/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb><c:/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb><c:/texlive/2019/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb><c:/texlive/2019/texmf-dist/fonts/type1/public/wasy-type1/wasy10.pfb>
+Output written on "c:/Users/ishra/OneDrive/Desktop/CMU 2019-2020/Junior Year/15-281 Intro to AI/hw2/hw2.pdf" (10 pages, 496466 bytes).
 PDF statistics:
- 104 PDF objects out of 1000 (max. 8388607)
- 68 compressed objects within 1 object stream
+ 108 PDF objects out of 1000 (max. 8388607)
+ 71 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  38 words of extra memory for PDF output out of 10000 (max. 10000000)
 
