@@ -21,6 +21,7 @@ import util
 import sys
 import copy
 from util import Stack
+from util import PriorityQueue
 import pdb
 
 class SearchProblem:
@@ -258,7 +259,23 @@ def iterativeDeepeningSearch(problem):
 def aStarSearch(problem, heuristic=nullHeuristic):
     """Search the node that has the lowest combined cost and heuristic first."""
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    print(problem.getStartState(), problem.goalTest(problem.getStartState()))
+    frontier = PriorityQueue()
+    costDict = dict()
+    startCost = heuristic(problem.getStartState())
+    frontier.push(problem.getStartState(), startCost)
+
+    while True:
+        state = frontier.pop()
+        if problem.goalTest(state):
+            return pathTracker[state]
+        
+        for action in problem.getActions(state):
+            # add each action to pathTracker and costDict            
+            # find heuristic and cost of each action 
+            # push new states to the frontier
+
+    # util.raiseNotDefined()
 
 # Abbreviations
 bfs = breadthFirstSearch
