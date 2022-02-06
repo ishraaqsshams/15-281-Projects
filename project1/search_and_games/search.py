@@ -139,6 +139,74 @@ def nullHeuristic(state, problem=None):
     """
     return 0
 
+def dfs(problem, depth):
+    frontier = Stack()
+    pathTracker = dict()
+    pathTracker[problem.getStartState()] = [problem.getStartState()]
+    frontier.push(problem.getStartState())
+    explored = set()
+    state = problem.getStartState()
+    currentPath = None
+    while (problem.goalTest(state) == False):
+
+        if frontier.isEmpty():
+            return None
+        
+        state = frontier.pop()
+        currentPath = pathTracker[state]
+        
+        if problem.goalTest(state):
+            return pathTracker[state][1:]
+        explored.add(state)
+        if len(currentPath)+1 > depth:
+            continue
+        for Action in problem.getActions(state):
+
+            i = Action.index(">")
+            action = Action[i+1:]
+        
+            if (action not in explored) and (action not in frontier.list):
+                pathTracker[action] = currentPath + [Action]
+                frontier.push(action)
+    return pathTracker[state][1:]
+
+def dfsTuple(problem, depth):
+    frontier = Stack()
+    pathTracker = dict()
+    pathTracker[problem.getStartState()] = [problem.getStartState()]
+    state = problem.getStartState()
+    frontier.push(state)
+    explored = set()
+    currentPath = None
+    while (problem.goalTest(state) == False):
+
+        if frontier.isEmpty():
+            return None
+        
+        state = frontier.pop()
+        currentPath = pathTracker[state]
+        
+        if problem.goalTest(state):
+            return pathTracker[state][1:]
+        explored.add(state)
+        if len(currentPath)+1 > depth:
+            continue
+        for action in problem.getActions(state):
+            if action == "North":
+                newState = (state[0], int(state[1]) + 1)
+            elif action == "South":
+                newState = (state[0], int(state[1]) - 1)
+            elif action == "West":
+                newState = (int(state[0]) - 1, state[1])
+            else:
+                newState = (int(state[0]) + 1, state[1])
+                
+            if (newState not in explored) and (newState not in frontier.list):
+                pathTracker[newState] = currentPath + [action]
+                frontier.push(newState)
+    return pathTracker[state][1:]
+    
+
 def iterativeDeepeningSearch(problem):
     """
     Perform DFS with increasingly larger depth. Begin with a depth of 1 and increment depth by 1 at every step.
@@ -167,36 +235,25 @@ def iterativeDeepeningSearch(problem):
     print("Start:", problem.getStartState())
     # print("Is the start a goal?", problem.goalTest(problem.getStartState()))
     # print("Actions from start state:", problem.getActions(problem.getStartState()))
-    
-
-    frontier = Stack()
-    pathTracker = dict()
-    pathTracker[problem.getStartState()] = [problem.getStartState()]
-    frontier.push(problem.getStartState())
-    explored = set()
-    state = problem.getStartState()
-    while (problem.goalTest(state) == False):
-        print(frontier.list)
-        print("pathtracker", pathTracker)
-        if frontier.isEmpty():
-            return None
-        state = frontier.pop()
-        print("state = ", state[-1])
-        currentPath = pathTracker[state[-1]]
-        if problem.goalTest(state):
-            return pathTracker[state]
-        explored.add(state)
-        for Action in problem.getActions(state):
-            print("Action ", Action)
-            action = Action[-1]
-            print("action ", action)
-            if (action not in explored) and (action not in frontier.list):
-                print("action", action)
-                pathTracker[action] = currentPath + [action]
-                frontier.push(action)
-    return pathTracker[state]
-
+    depth = 0
+    if (type(problem.getStartState()) ==  tuple):
+        while True:
+            x = dfsTuple(problem, depth)
+            if x == None:
+                depth += 1
+            else:
+                return x
+    else:
+        while True:
+            x = dfs(problem, depth)
+            if x == None:
+                depth += 1
+            else:
+                return x
+        
     # util.raiseNotDefined()
+
+
 
 def aStarSearch(problem, heuristic=nullHeuristic):
     """Search the node that has the lowest combined cost and heuristic first."""
