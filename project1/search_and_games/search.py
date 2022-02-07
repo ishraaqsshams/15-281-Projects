@@ -233,7 +233,6 @@ def iterativeDeepeningSearch(problem):
     """
     "*** YOUR CODE HERE ***"
 
-    print("Start:", problem.getStartState())
     # print("Is the start a goal?", problem.goalTest(problem.getStartState()))
     # print("Actions from start state:", problem.getActions(problem.getStartState()))
     depth = 0
@@ -259,18 +258,45 @@ def iterativeDeepeningSearch(problem):
 def aStarSearch(problem, heuristic=nullHeuristic):
     """Search the node that has the lowest combined cost and heuristic first."""
     "*** YOUR CODE HERE ***"
-    print(problem.getStartState(), problem.goalTest(problem.getStartState()))
+    # print(problem.getStartState(), problem.goalTest(problem.getStartState()))
+    explored = set()
     frontier = PriorityQueue()
-    costDict = dict()
-    startCost = heuristic(problem.getStartState())
-    frontier.push(problem.getStartState(), startCost)
+    stateCostDict = dict()
+    pathTracker = dict()
+
+    forwardCost = heuristic(problem.getStartState(), problem)
+    stateCostDict[problem.getStartState()] = [0, forwardCost]
+    pathTracker[problem.getStartState()] = []
+
+    frontier.push(problem.getStartState(), forwardCost)
+
 
     while True:
+        if (frontier.isEmpty()):
+            return []
         state = frontier.pop()
         if problem.goalTest(state):
             return pathTracker[state]
-        
+
+        explored.add(state)
+        pathState = pathTracker[state]
+        costState = stateCostDict[state]
+
         for action in problem.getActions(state):
+            # get child state
+            child = problem.getResult(state, action)
+
+            if (child not in explored):
+                pathTracker[child] = pathState + [action]
+                forwardCostChild = heuristic(child, problem)
+                stateCostDict[child] = [costState[0] + problem.getCost(state, action), forwardCostChild]
+                frontier.update(child, sum(stateCostDict[child]))
+            # elif child in frontier.heap:
+            #     pathTracker[child] = pathState + [action]
+            #     forwardCostChild = heuristic(child, problem)
+            #     stateCostDict[child] = [costState[0] + problem.getCost(state, action), forwardCostChild]
+            #     frontier.update(child, sum(stateCostDict[child]))
+                # 
             # add each action to pathTracker and costDict            
             # find heuristic and cost of each action 
             # push new states to the frontier
