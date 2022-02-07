@@ -144,8 +144,48 @@ class MinimaxAgent(MultiAgentSearchAgent):
         """
         "*** YOUR CODE HERE ***"
 
-        for action in gameState.getLegalActions(0):
-            gameState.generateSuccessor(0, action)
+        def recursive_minimax(gameState, depth, agentIndex):
+            if agentIndex >= gameState.getNumAgents():
+                depth += 1
+                agentIndex = 0
+            if gameState.isWin() or gameState.isLose():
+                return self.evaluationFunction(gameState)
+            if depth >= self.depth:
+                return self.evaluationFunction(gameState)
+            if (agentIndex == 0):
+                #pacman max node
+                actions = gameState.getLegalActions(agentIndex)
+                bestValue = None
+                bestAction = None
+                for action in actions:
+                    newState = gameState.generateSuccessor(agentIndex, action)
+                    value = None
+                    try:
+                        value = recursive_minimax(newState, depth, 1)[0]
+                    except:
+                        value = recursive_minimax(newState, depth, 1)
+                    if bestValue == None or value > bestValue:
+                        bestValue = value
+                        bestAction = action
+                return (bestValue, bestAction)
+            else:
+                actions = gameState.getLegalActions(agentIndex)
+                bestValue = None
+                bestAction = None
+                for action in actions:
+                    newState = gameState.generateSuccessor(agentIndex, action)
+                    value = None
+                    try:
+                        value = recursive_minimax(newState, depth, agentIndex + 1)[0]
+                    except:
+                        value = recursive_minimax(newState, depth, agentIndex + 1)
+                    if bestValue == None or value < bestValue:
+                        bestValue = value
+                        bestAction = action
+                return (bestValue, bestAction)
+
+        
+        return recursive_minimax(gameState, 0, 0)[1]
 
 class ExpectimaxAgent(MultiAgentSearchAgent):
     """
