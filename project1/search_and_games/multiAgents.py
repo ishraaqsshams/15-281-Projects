@@ -200,7 +200,40 @@ class ExpectimaxAgent(MultiAgentSearchAgent):
         legal moves.
         """
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        
+        # modeled largely from minimax from q7
+        def recursive_expectimax(gameState, depth, agentIndex):
+            if agentIndex >= gameState.getNumAgents():
+                depth += 1
+                agentIndex = 0
+            if gameState.isWin() or gameState.isLose():
+                return self.evaluationFunction(gameState)
+            if depth >= self.depth:
+                return self.evaluationFunction(gameState)
+            if (agentIndex == 0):
+                #pacman max node
+                actions = gameState.getLegalActions(agentIndex)
+                bestValue = None
+                bestAction = None
+                for action in actions:
+                    newState = gameState.generateSuccessor(agentIndex, action)
+                    value = None
+                    try:
+                        value = recursive_expectimax(newState, depth, 1)[0]
+                    except:
+                        value = recursive_expectimax(newState, depth, 1)
+                    if bestValue == None or value > bestValue:
+                        bestValue = value
+                        bestAction = action
+                return (bestValue, bestAction)
+            else:
+                #expectimax logic for ghosts
+                pass
+                
+            
+
+        return recursive_expectimax(gameState, 0, 0)[1]
+            
 
 def betterEvaluationFunction(currentGameState):
     """
