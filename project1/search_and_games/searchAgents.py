@@ -291,14 +291,14 @@ class CornersProblem(search.SearchProblem):
         space)
         """
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        return (self.startingPosition, False, False, False, False)
 
     def goalTest(self, state):
         """
         Returns whether this search state is a goal state of the problem.
         """
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        return state[1] and state[2] and state[3] and state[4]
 
     def getActions(self, state):
         """
@@ -323,12 +323,28 @@ class CornersProblem(search.SearchProblem):
         
         # Add a successor state to the successor list if the action is legal
         # Here's a code snippet for figuring out whether a new position hits a wall:
-        #   x,y = currentPosition
-        #   dx, dy = Actions.directionToVector(action)
-        #   nextx, nexty = int(x + dx), int(y + dy)
-        #   hitsWall = self.walls[nextx][nexty]
+        currentPosition = state[0]
+        x,y = currentPosition
+        dx, dy = Actions.directionToVector(action)
+        nextx, nexty = int(x + dx), int(y + dy)
+        hitsWall = self.walls[nextx][nexty]
+        if (not hitsWall):
+            nextPosition = (nextx, nexty)
+            if nextPosition == self.corners[0]:
+                return (nextPosition, True, state[2], state[3], state[4])
+            elif nextPosition == self.corners[1]:
+                return (nextPosition, state[1], True, state[3], state[4])
+            elif nextPosition == self.corners[2]:
+                return (nextPosition, state[1], state[2], True, state[4])
+            elif nextPosition == self.corners[3]:
+                return (nextPosition, state[1], state[2], state[3], True)
+            else:
+                return (nextPosition, state[1], state[2], state[3], state[4])
+        else:
+            return state
 
         "*** YOUR CODE HERE ***"
+
 
     def getCost(self, state, action):
         """Given a state and an action, returns a cost of 1, which is

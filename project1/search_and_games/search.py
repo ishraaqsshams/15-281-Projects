@@ -267,7 +267,6 @@ def aStarSearch(problem, heuristic=nullHeuristic):
     forwardCost = heuristic(problem.getStartState(), problem)
     stateCostDict[problem.getStartState()] = [0, forwardCost]
     pathTracker[problem.getStartState()] = []
-
     frontier.push(problem.getStartState(), forwardCost)
 
 
@@ -306,24 +305,6 @@ def aStarSearch(problem, heuristic=nullHeuristic):
                         stateCostDict[child] = priorCostEntry
                         pathTracker[child] = priorPathTracker 
 
-
-
-
-
-            # else:
-            #     priorCost = None
-            #     if child in stateCostDict:
-            #         priorCost = sum(stateCostDict[child])
-                
-            #     pathTracker[child] = pathState + [action]
-            #     forwardCostChild = heuristic(child, problem)
-            #     stateCostDict[child] = [costState[0] + problem.getCost(state, action), forwardCostChild]
-            #     if priorCost == None:
-            #         frontier.update(child, sum(stateCostDict[child]))
-            #     else:
-            #         frontier.update(child, min(priorCost, sum(stateCostDict[child])))
-
-    # util.raiseNotDefined()
 
 # Abbreviations
 bfs = breadthFirstSearch
