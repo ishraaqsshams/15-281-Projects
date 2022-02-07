@@ -287,19 +287,41 @@ def aStarSearch(problem, heuristic=nullHeuristic):
             child = problem.getResult(state, action)
 
             if (child not in explored):
+                priorCost = None
+                priorCostEntry = None
+                priorPathTracker = None
+                if child in stateCostDict:
+                    priorCost = sum(stateCostDict[child])
+                    priorCostEntry = stateCostDict[child]
+                    priorPathTracker = pathTracker[child]
+
                 pathTracker[child] = pathState + [action]
                 forwardCostChild = heuristic(child, problem)
                 stateCostDict[child] = [costState[0] + problem.getCost(state, action), forwardCostChild]
-                frontier.update(child, sum(stateCostDict[child]))
-            # elif child in frontier.heap:
+                if priorCost == None:
+                    frontier.push(child, sum(stateCostDict[child]))
+                else:
+                    frontier.update(child, min(priorCost, sum(stateCostDict[child])))
+                    if sum(stateCostDict[child]) > priorCost:
+                        stateCostDict[child] = priorCostEntry
+                        pathTracker[child] = priorPathTracker 
+
+
+
+
+
+            # else:
+            #     priorCost = None
+            #     if child in stateCostDict:
+            #         priorCost = sum(stateCostDict[child])
+                
             #     pathTracker[child] = pathState + [action]
             #     forwardCostChild = heuristic(child, problem)
             #     stateCostDict[child] = [costState[0] + problem.getCost(state, action), forwardCostChild]
-            #     frontier.update(child, sum(stateCostDict[child]))
-                # 
-            # add each action to pathTracker and costDict            
-            # find heuristic and cost of each action 
-            # push new states to the frontier
+            #     if priorCost == None:
+            #         frontier.update(child, sum(stateCostDict[child]))
+            #     else:
+            #         frontier.update(child, min(priorCost, sum(stateCostDict[child])))
 
     # util.raiseNotDefined()
 
