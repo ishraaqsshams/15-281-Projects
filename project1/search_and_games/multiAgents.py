@@ -143,7 +143,9 @@ class MinimaxAgent(MultiAgentSearchAgent):
         Returns the total number of agents in the game
         """
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+
+        for action in gameState.getLegalActions(0):
+            gameState.generateSuccessor(0, action)
 
 class ExpectimaxAgent(MultiAgentSearchAgent):
     """

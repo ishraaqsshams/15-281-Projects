@@ -389,13 +389,13 @@ def cornersHeuristic(state, problem):
     cornersLeft = []
     "*** YOUR CODE HERE ***"
     currentPosition = state[0]
-    if state[1]:
+    if not state[1]:
         cornersLeft.append(corners[0])
-    if state[2]:
+    if not state[2]:
         cornersLeft.append(corners[1])
-    if state[3]:
+    if not state[3]:
         cornersLeft.append(corners[2])
-    if state[4]:
+    if not state[4]:
         cornersLeft.append(corners[3])
 
     
