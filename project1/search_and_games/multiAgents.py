@@ -265,10 +265,13 @@ def betterEvaluationFunction(currentGameState):
     Your extreme ghost-hunting, pellet-nabbing, food-gobbling, unstoppable
     evaluation function (question 9).
 
-    DESCRIPTION: <write something here so we know what you did>
+    DESCRIPTION: This evaluation function calculates the distance of the power 
+    pellets from Pacman, the number of power pellets, the number of food pellets,
+    the distance of the food from Pacman, the distance of the scared ghosts from
+    Pacman, and the distance of the non-scared ghosts from Pacman. It gives a weight
+    to these values depending on how important they are.
     """
     "*** YOUR CODE HERE ***"
-    #power pellet distance, food distance, scraed ghost dist, non scared ghpst dist, num food, num ppellets
     pacmanPos = currentGameState.getPacmanPosition()
     powerPelletDistance = 0
     powerPelletCount = 0

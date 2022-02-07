@@ -131,7 +131,24 @@ def breadthFirstSearch(problem):
     You are not required to implement this, but you may find it useful for Q5.
     """
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    explored = set()
+    frontier = PriorityQueue()
+    pathTracker = dict()
+    pathTracker[problem.getStartState()] = []
+    frontier.push(problem.getStartState(),0)
+    while True:
+        if frontier.isEmpty():
+            return []
+        state = frontier.pop()
+        if problem.goalTest(state):
+            return pathTracker[state]
+        explored.add(state)
+        pathState = pathTracker[state]
+        for action in problem.getActions(state):
+            child = problem.getResult(state,action)
+            if child not in explored:
+                pathTracker[child] = pathState + [action]
+                frontier.push(child,0)
 
 def nullHeuristic(state, problem=None):
     """
