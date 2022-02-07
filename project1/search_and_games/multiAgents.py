@@ -268,7 +268,45 @@ def betterEvaluationFunction(currentGameState):
     DESCRIPTION: <write something here so we know what you did>
     """
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    #power pellet distance, food distance, scraed ghost dist, non scared ghpst dist, num food, num ppellets
+    pacmanPos = currentGameState.getPacmanPosition()
+    powerPelletDistance = 0
+    powerPelletCount = 0
+    powerPellets = currentGameState.getCapsules()
+    for pellet in powerPellets:
+        powerPelletCount += 1
+        pelletDist = manhattanDistance(pacmanPos,pellet)
+        if pelletDist > 0:
+            powerPelletDistance += (1/pelletDist)*16
+    foodPellets = currentGameState.getFood().asList()
+    foodDistance = 0
+    foodCount = 0
+    for food in foodPellets:
+        foodDist = manhattanDistance(pacmanPos,food)
+        if foodDist > 0:
+            foodDistance += (1/foodDist)*10
+        foodCount += 1
+    scaredGhostDistance = 0
+    nonScaredGhostDistance = 0
+    for ghostState in currentGameState.getGhostStates():
+        if ghostState.scaredTimer > 0:
+            ghostDist = manhattanDistance(pacmanPos,ghostState.getPosition())
+            if ghostDist > 0:
+                scaredGhostDistance -= (1/ghostDist)*10
+        else:
+            ghostDist = manhattanDistance(pacmanPos,ghostState.getPosition())
+            if ghostDist > 0:
+                nonScaredGhostDistance -= (1/ghostDist)*10
+    if foodCount > 0:
+        foodCount = 1/foodCount
+    else:
+        foodCount = 0
+    if powerPelletCount > 0:
+        powerPelletCount = 1/powerPelletCount
+    else:
+        powerPelletCount = 0
+    score = currentGameState.getScore() + powerPelletDistance + foodDistance + foodCount + powerPelletCount + scaredGhostDistance + nonScaredGhostDistance
+    return score
 
 # Abbreviation
 better = betterEvaluationFunction
