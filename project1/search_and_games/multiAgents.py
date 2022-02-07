@@ -228,8 +228,16 @@ class ExpectimaxAgent(MultiAgentSearchAgent):
                 return (bestValue, bestAction)
             else:
                 #expectimax logic for ghosts
-                pass
-                
+                actions = gameState.getLegalActions(agentIndex)
+                sum_values = 0
+                for action in actions:
+                    newState = gameState.generateSuccessor(agentIndex, action)
+                    try:
+                        value = recursive_expectimax(newState, depth, agentIndex + 1)[0]
+                    except:
+                        value = recursive_expectimax(newState, depth, agentIndex + 1)
+                    sum_values += value
+                return sum_values / len(actions)
             
 
         return recursive_expectimax(gameState, 0, 0)[1]
