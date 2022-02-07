@@ -32,6 +32,9 @@ import random, util
 
 from game import Agent
 
+def manhattanDistance(p1, p2):
+    return abs(p1[0] - p2[0]) + abs(p1[1] - p2[1])
+
 class ReflexAgent(Agent):
     """
     A reflex agent chooses an action at each choice point by examining
@@ -83,12 +86,26 @@ class ReflexAgent(Agent):
         # Useful information you can extract from a GameState (pacman.py)
         successorGameState = currentGameState.generatePacmanSuccessor(action)
         newPos = successorGameState.getPacmanPosition()
-        newFood = successorGameState.getFood()
+        newFood = successorGameState.getFood().asList()
         newGhostStates = successorGameState.getGhostStates()
         newScaredTimes = [ghostState.scaredTimer for ghostState in newGhostStates]
-
+        minFoodDist = float("inf")
+        for foodPos in newFood:
+            foodDist = manhattanDistance(foodPos,newPos)
+            if foodDist < minFoodDist and foodDist != 0:
+                minFoodDist = foodDist
+                    
+        ghostDistances = 0
+        for ghostState in newGhostStates:
+            manhattanDist = manhattanDistance(ghostState.getPosition(),newPos)
+            if manhattanDist != 0 and manhattanDist < 5:
+                ghostDistances -= (5 - manhattanDist)**2
+            elif manhattanDist != 0 and manhattanDist >= 5:
+                ghostDistances += 1/manhattanDist
+        
         "*** YOUR CODE HERE ***"
-        return successorGameState.getScore()
+        score = successorGameState.getScore() + ghostDistances + (10/minFoodDist) + newScaredTimes[0]*10
+        return score
 
 def scoreEvaluationFunction(currentGameState):
     """
