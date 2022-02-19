@@ -14,6 +14,7 @@
 
 import numpy as np
 import itertools
+import math
 
 import pacmanPlot
 import graphicsUtils
@@ -45,8 +46,22 @@ def findIntersections(constraints):
 
     """
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
-
+    sols = []
+    combs = itertools.combinations(constraints, len(constraints[0][0]))
+    for comb in combs:
+        A = []
+        b = []
+        for elem in comb:
+            A_i = elem[0]
+            b_i = elem[1]
+            A.append(list(A_i))
+            b.append([b_i])
+        if np.linalg.matrix_rank(A) == len(constraints[0][0]):
+            x = tuple(x_i for [x_i] in np.linalg.solve(A,b))
+            if x not in sols:
+                sols.append(x)
+    return sols
+    
 def findFeasibleIntersections(constraints):
     """
     Given a list of linear inequality constraints, return a list all
