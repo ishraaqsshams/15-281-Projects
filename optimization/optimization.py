@@ -83,18 +83,18 @@ def findFeasibleIntersections(constraints):
     """
     "*** YOUR CODE HERE ***"
     sols = findIntersections(constraints)
-    A_array = []
-    b_array = []
+    A = []
+    b = []
     feasible_sols = []
     less = True
     for elem in constraints:
-        A_array.append(list(elem[0]))
-        b_array.append([elem[1]])
+        A.append(list(elem[0]))
+        b.append([elem[1]])
     for sol in sols:
         x = np.array(list(sol))
-        new_b = np.dot(A_array,x)
+        new_b = np.dot(A,x)
         for i in range(len(new_b)):
-            if new_b[i] > b_array[i]:
+            if new_b[i] > b[i]:
                 less = False
         if less:
             feasible_sols.append(sol)
@@ -128,7 +128,17 @@ def solveLP(constraints, cost):
 
     """
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    feasible_sols = findFeasibleIntersections(constraints)
+    min_sol = []
+    min_val = float("inf")
+    for sol in feasible_sols:
+        cost_val = np.dot(np.transpose(list(cost)),sol)
+        if cost_val < min_val:
+            min_val = cost_val
+            min_sol = sol
+    if min_sol == [] or min_val == float("inf"):
+        return None
+    return (min_sol,min_val)
 
 def wordProblemLP():
     """
