@@ -82,7 +82,24 @@ def findFeasibleIntersections(constraints):
 
     """
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    sols = findIntersections(constraints)
+    A_array = []
+    b_array = []
+    feasible_sols = []
+    less = True
+    for elem in constraints:
+        A_array.append(list(elem[0]))
+        b_array.append([elem[1]])
+    for sol in sols:
+        x = np.array(list(sol))
+        new_b = np.dot(A_array,x)
+        for i in range(len(new_b)):
+            if new_b[i] > b_array[i]:
+                less = False
+        if less:
+            feasible_sols.append(sol)
+        less = True
+    return feasible_sols
 
 def solveLP(constraints, cost):
     """
