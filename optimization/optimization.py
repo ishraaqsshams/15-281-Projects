@@ -157,7 +157,10 @@ def wordProblemLP():
 
     """
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    constraints = [ ((-1, 0), -10), ((0, -1), -15.5), ((2.5, 2.5), 100), ((0.5, 0.25), 50) ]
+    cost = [-7, -4]
+    sol_val, cost_val = solveLP(constraints, cost)
+    return (sol_val,-cost_val)
 
 
 def solveIP(constraints, cost):
