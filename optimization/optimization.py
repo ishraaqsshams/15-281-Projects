@@ -18,7 +18,7 @@ import math
 
 import pacmanPlot
 import graphicsUtils
-import util
+from util import PriorityQueue
 
 # You may add any helper functions you would like here:
 # def somethingUseful():
@@ -129,6 +129,9 @@ def solveLP(constraints, cost):
     """
     "*** YOUR CODE HERE ***"
     feasible_sols = findFeasibleIntersections(constraints)
+    print("feas_sols=",feasible_sols)
+    if feasible_sols == []:
+        return None
     min_sol = []
     min_val = float("inf")
     for sol in feasible_sols:
@@ -163,6 +166,82 @@ def wordProblemLP():
     return (sol_val,-cost_val)
 
 
+def solveIP_helper(cost, queue):
+    '''
+    if empty return None
+    
+    call solveLP and add to queue
+
+    if None return
+
+    pop off the queue:
+
+    if integer point: return point
+
+    else check if x is int
+        get x high and low
+        get LP values for new bounds
+        return recursive call
+
+    repeat for y
+    
+
+     '''
+    # sol_val_new, min_val_new = solveLP(constraints, cost)
+    # if (sol_val_new == None):
+    #     return
+    # queue.push((sol_val_new, min_val_new, constraints, cost),min_val_new)
+
+    if queue.isEmpty():
+        return None
+    print("\n\n")
+    (sol_val, min_val, constraints) = queue.pop()
+    print(sol_val,min_val,constraints)
+    # print("sol_val[0]", sol_val[0], "rounded",round(sol_val[0]))
+    # print(np.abs(sol_val[0] - round(sol_val[0])))
+    # print("sol_val[1]", sol_val[1], "rounded",round(sol_val[1]))
+    # print(np.abs(sol_val[1] - round(sol_val[1])))
+    if np.abs(sol_val[0] - round(sol_val[0])) < 0.001 and np.abs(sol_val[1] - round(sol_val[1])) < 0.001:
+        return (sol_val, min_val)
+
+    if np.abs(sol_val[0] - round(sol_val[0])) >= 0.001:
+        x_low = math.floor(sol_val[0])
+        x_high = math.ceil(sol_val[0])
+        constraints_low = constraints + [((1,0),x_low)]
+        constraints_high = constraints + [((-1,0),-x_high)]
+        print("conlow", constraints_low)
+        print("conhigh", constraints_high)
+        solveLPLow = solveLP(constraints_low, cost)
+        solveLPHigh = solveLP(constraints_high, cost)
+
+        if solveLPLow != None:
+            print("lplow=",solveLPLow)
+            queue.push((solveLPLow[0], solveLPLow[1], constraints_low), solveLPLow[1])
+        if solveLPHigh != None:
+            print("lphigh=",solveLPHigh)
+            queue.push((solveLPHigh[0], solveLPHigh[1], constraints_high), solveLPHigh[1])
+
+        return solveIP_helper(cost, queue)
+
+
+    elif math.floor(sol_val[1]) != sol_val[1]:
+        y_low = math.floor(sol_val[1])
+        y_high = math.ceil(sol_val[1])
+        print("y", y_low,y_high)
+
+        constraints_low = constraints + [((0,1),y_low)]
+        constraints_high = constraints + [((0,-1),-y_high)]
+
+        solveLPLow = solveLP(constraints_low, cost)
+        solveLPHigh = solveLP(constraints_high, cost)
+
+        if solveLPLow != None:
+            queue.push((solveLPLow[0], solveLPLow[1], constraints_low), solveLPLow[1])
+        if solveLPHigh != None:
+            queue.push((solveLPHigh[0], solveLPHigh[1], constraints_high), solveLPHigh[1])
+
+        return solveIP_helper(cost, queue)
+
 def solveIP(constraints, cost):
     """
     Given a list of linear inequality constraints and a cost vector,
@@ -191,7 +270,12 @@ def solveIP(constraints, cost):
 
     """
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    queue = PriorityQueue()
+    solve_LP = solveLP(constraints, cost)
+    if (solve_LP == None):
+        return
+    queue.push((solve_LP[0], solve_LP[1], constraints), solve_LP[1])
+    return solveIP_helper(cost, queue)
 
 def wordProblemIP():
     """
