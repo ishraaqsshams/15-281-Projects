@@ -129,7 +129,6 @@ def solveLP(constraints, cost):
     """
     "*** YOUR CODE HERE ***"
     feasible_sols = findFeasibleIntersections(constraints)
-    print("feas_sols=",feasible_sols)
     if feasible_sols == []:
         return None
     min_sol = []
@@ -167,80 +166,37 @@ def wordProblemLP():
 
 
 def solveIP_helper(cost, queue):
-    '''
-    if empty return None
-    
-    call solveLP and add to queue
-
-    if None return
-
-    pop off the queue:
-
-    if integer point: return point
-
-    else check if x is int
-        get x high and low
-        get LP values for new bounds
-        return recursive call
-
-    repeat for y
-    
-
-     '''
-    # sol_val_new, min_val_new = solveLP(constraints, cost)
-    # if (sol_val_new == None):
-    #     return
-    # queue.push((sol_val_new, min_val_new, constraints, cost),min_val_new)
-
     if queue.isEmpty():
         return None
-    print("\n\n")
+
     (sol_val, min_val, constraints) = queue.pop()
-    print(sol_val,min_val,constraints)
-    # print("sol_val[0]", sol_val[0], "rounded",round(sol_val[0]))
-    # print(np.abs(sol_val[0] - round(sol_val[0])))
-    # print("sol_val[1]", sol_val[1], "rounded",round(sol_val[1]))
-    # print(np.abs(sol_val[1] - round(sol_val[1])))
-    if np.abs(sol_val[0] - round(sol_val[0])) < 0.001 and np.abs(sol_val[1] - round(sol_val[1])) < 0.001:
+    int_sol = True
+    for i in range(len(sol_val)):
+        if np.abs(sol_val[i] - round(sol_val[i])) >= 0.001:
+            int_sol = False
+    if int_sol:
         return (sol_val, min_val)
 
-    if np.abs(sol_val[0] - round(sol_val[0])) >= 0.001:
-        x_low = math.floor(sol_val[0])
-        x_high = math.ceil(sol_val[0])
-        constraints_low = constraints + [((1,0),x_low)]
-        constraints_high = constraints + [((-1,0),-x_high)]
-        print("conlow", constraints_low)
-        print("conhigh", constraints_high)
-        solveLPLow = solveLP(constraints_low, cost)
-        solveLPHigh = solveLP(constraints_high, cost)
+    for i in range(len(sol_val)):
+        if np.abs(sol_val[i] - round(sol_val[i])) >= 0.001:
+            dim_low = math.floor(sol_val[i])
+            dim_high = math.ceil(sol_val[i])
+            list_0 = [0] * len(sol_val)
+            list_0[i] = 1
+            tuple_low = tuple(list_0)
+            list_0[i] = -1
+            tuple_high = tuple(list_0)
+            constraints_low = constraints + [(tuple_low,dim_low)]
+            constraints_high = constraints + [(tuple_high,-dim_high)]
+            solveLPLow = solveLP(constraints_low, cost)
+            solveLPHigh = solveLP(constraints_high, cost)
 
-        if solveLPLow != None:
-            print("lplow=",solveLPLow)
-            queue.push((solveLPLow[0], solveLPLow[1], constraints_low), solveLPLow[1])
-        if solveLPHigh != None:
-            print("lphigh=",solveLPHigh)
-            queue.push((solveLPHigh[0], solveLPHigh[1], constraints_high), solveLPHigh[1])
+            if solveLPLow != None:
+                queue.push((solveLPLow[0], solveLPLow[1], constraints_low), solveLPLow[1])
+            if solveLPHigh != None:
+                queue.push((solveLPHigh[0], solveLPHigh[1], constraints_high), solveLPHigh[1])
 
-        return solveIP_helper(cost, queue)
-
-
-    elif math.floor(sol_val[1]) != sol_val[1]:
-        y_low = math.floor(sol_val[1])
-        y_high = math.ceil(sol_val[1])
-        print("y", y_low,y_high)
-
-        constraints_low = constraints + [((0,1),y_low)]
-        constraints_high = constraints + [((0,-1),-y_high)]
-
-        solveLPLow = solveLP(constraints_low, cost)
-        solveLPHigh = solveLP(constraints_high, cost)
-
-        if solveLPLow != None:
-            queue.push((solveLPLow[0], solveLPLow[1], constraints_low), solveLPLow[1])
-        if solveLPHigh != None:
-            queue.push((solveLPHigh[0], solveLPHigh[1], constraints_high), solveLPHigh[1])
-
-        return solveIP_helper(cost, queue)
+            return solveIP_helper(cost, queue)
 
 def solveIP(constraints, cost):
     """
@@ -294,7 +250,24 @@ def wordProblemIP():
 
     """
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    constraints = [((1.2, 0, 0, 0, 0, 0), 30),
+                    ((0, 1.2, 0, 0, 0, 0), 30),
+                    ((0, 0, 1.3, 0, 0, 0), 30),
+                    ((0, 0, 0, 1.3, 0, 0), 30),
+                    ((0, 0, 0, 0, 1.1, 0), 30),
+                    ((0, 0, 0, 0, 0, 1.1), 30),
+                    ((-1, 0, -1, 0, -1, 0), -15), 
+                    ((0, -1, 0, -1, 0, -1), -30),
+                    ((-1, 0, 0, 0, 0, 0), 0),
+                    ((0, -1, 0, 0, 0, 0), 0),
+                    ((0, 0, -1, 0, 0, 0), 0),
+                    ((0, 0, 0, -1, 0, 0), 0),
+                    ((0, 0, 0, 0, -1, 0), 0),
+                    ((0, 0, 0, 0, 0, -1), 0)
+    ]
+    cost = [12, 20, 4, 5, 2, 1]
+    sol_val, cost_val = solveIP(constraints, cost)
+    return (sol_val, cost_val) 
 
 def foodDistribution(truck_limit, W, C, T):
     """
@@ -336,11 +309,32 @@ def foodDistribution(truck_limit, W, C, T):
     You can take advantage of your solveIP function.
 
     """
+    "*** YOUR CODE HERE ***"
     M = len(W)
     N = len(C)
+    constraints = []
+    for weights in range(M):
+        for dest in range(N):
+            list_0 = [0] * (M * N)
+            list_0[M * weights + dest] = W[weights]
+            weight_constraint = [(tuple(list_0), truck_limit)]
+            constraints += weight_constraint
+            list_0[M * weights + dest] = -1
+            weight_constraint = [(tuple(list_0), 0)]
+            constraints += weight_constraint
 
-    "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    for i in range(N):
+        new_constraint_list = [0] * (M * N)
+        for j in range(M):
+            new_constraint_list[M * j + i] = -1
+        new_constraint = [(tuple(new_constraint_list), -C[i])]
+        constraints += new_constraint    
+
+    cost_vector = []
+    for i in range(len(T[0])):
+        for j in range(len(T)):
+            cost_vector.append(T[i][j])
+    return solveIP(constraints, cost_vector)
 
 
 if __name__ == "__main__":
